@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA StudyBuddy - Complete Course Helper</title>
+    
+    <!-- Social Media Preview -->
+    <meta property="og:title" content="RSA StudyBuddy - Free RSA Course Helper">
+    <meta property="og:description" content="146 searchable questions from the RSA course. Built by a tradie, for tradies. Pass your RSA first time.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e4;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 0.95rem;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .language-selector label {
+            display: block;
+            margin-bottom: 8px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        
+        .language-selector select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: #1a1a2e;
+            color: #e4e4e4;
+            font-size: 1rem;
+        }
+        
+        /* Search */
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 50px;
+            border-radius: 12px;
+            border: 2px solid #333;
+            background: rgba(255,255,255,0.05);
+            color: #e4e4e4;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        #searchInput:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0,212,255,0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+        
+        .search-count {
+            text-align: center;
+            color: #888;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            background: transparent;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        
+        .category-btn:hover {
+            border-color: #00d4ff;
+            color: #00d4ff;
+        }
+        
+        .category-btn.active {
+            background: #00d4ff;
+            border-color: #00d4ff;
+            color: #1a1a2e;
+        }
+        
+        /* Questions */
+        .question-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: all 0.2s;
+        }
+        
+        .question-card:hover {
+            border-color: #444;
+        }
+        
+        .question-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .question-number {
+            background: #00d4ff;
+            color: #1a1a2e;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        
+        .question-text {
+            flex: 1;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .toggle-icon {
+            color: #00d4ff;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+        
+        .question-card.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .answer-section {
+            display: none;
+            padding: 0 20px 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .question-card.open .answer-section {
+            display: block;
+        }
+        
+        .answer-label {
+            color: #00d4ff;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin: 15px 0 8px;
+            font-weight: 600;
+        }
+        
+        .answer-text {
+            color: #4ade80;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .answer-options {
+            list-style: none;
+        }
+        
+        .answer-options li {
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+            color: #ccc;
+        }
+        
+        .answer-options li.correct {
+            color: #4ade80;
+        }
+        
+        .answer-options li.correct::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+        }
+        
+        .answer-options li.incorrect::before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+        
+        .translated-text {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(123, 44, 191, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #7b2cbf;
+        }
+        
+        .translated-label {
+            color: #7b2cbf;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        /* Key Terms */
+        .key-terms {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .key-terms h2 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .term-grid {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .term-item {
+            background: rgba(0,0,0,0.2);
+            padding: 12px 15px;
+            border-radius: 8px;
+        }
+        
+        .term-word {
+            color: #00d4ff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .term-def {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+        
+        .credit {
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        /* Highlight */
+        mark {
+            background: rgba(0,212,255,0.3);
+            color: inherit;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .stats { gap: 20px; }
+            .question-header { padding: 12px 15px; }
+            .category-filter { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍺 RSA StudyBuddy</h1>
+            <p class="subtitle">Responsible Service of Alcohol - Complete Course Helper</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">146</div>
+                    <div class="stat-label">Questions</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Topics</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Languages</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="language-selector">
+            <label for="languageSelect">🌐 Translate answers to:</label>
+            <select id="languageSelect">
+                <option value="">English (No Translation)</option>
+                <option value="tl">🇵🇭 Filipino (Tagalog)</option>
+                <option value="id">🇮🇩 Indonesian</option>
+                <option value="es">🇪🇸 Spanish</option>
+                <option value="pt">🇧🇷 Portuguese</option>
+                <option value="fr">🇫🇷 French</option>
+                <option value="de">🇩🇪 German</option>
+                <option value="it">🇮🇹 Italian</option>
+                <option value="nl">🇳🇱 Dutch</option>
+                <option value="mi">🇳🇿 Te Reo Māori</option>
+                <option value="ru">🇷🇺 Russian</option>
+                <option value="zh">🇨🇳 中文 (Mandarin)</option>
+                <option value="vi">🇻🇳 Vietnamese</option>
+                <option value="th">🇹🇭 Thai</option>
+                <option value="ko">🇰🇷 Korean</option>
+                <option value="ja">🇯🇵 Japanese</option>
+            </select>
+        </div>
+        
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search questions... e.g. 'intoxicated' or 'standard drink'">
+        </div>
+        
+        <div class="search-count" id="searchCount">Showing all 146 questions</div>
+        
+        <div class="category-filter">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="drinks">Standard Drinks</button>
+            <button class="category-btn" data-category="health">Health & BAC</button>
+            <button class="category-btn" data-category="intox">Intoxication</button>
+            <button class="category-btn" data-category="service">Service & Refusal</button>
+            <button class="category-btn" data-category="minors">Minors & ID</button>
+            <button class="category-btn" data-category="harm">Community Impact</button>
+            <button class="category-btn" data-category="states">State Regulations</button>
+            <button class="category-btn" data-category="penalties">Penalties</button>
+            <button class="category-btn" data-category="house">House Policies</button>
+            <button class="category-btn" data-category="abac">ABAC & Advertising</button>
+            <button class="category-btn" data-category="remote">Remote Sales</button>
+        </div>
+        
+        <div id="questionsContainer"></div>
+        
+        <div class="key-terms">
+            <h2>📚 Key Terms</h2>
+            <div class="term-grid">
+                <div class="term-item">
+                    <div class="term-word">RSA</div>
+                    <div class="term-def">Responsible Service of Alcohol - training required to serve alcohol in Australia</div>
+                </div>
+                <div class="term-item">
+                    <div class="term-word">Standard Drink</div>
+                    <div class="term-def">Contains 10 grams of pure alcohol</div>
+                </div>
+                <div class="term-item">
+                    <div class="term-word">Unduly Intoxicated</div>
+                    <div class="term-def">Mental or physical faculties are impaired by alcohol so as to diminish the person's ability to think and act prudently</div>
+                </div>
+                <div class="term-item">
+                    <div class="term-word">Licensee</div>
+                    <div class="term-def">Person or company holding the liquor license for a venue</div>
+                </div>
+                <div class="term-item">
+                    <div class="term-word">Duty of Care</div>
+                    <div class="term-def">Legal obligation to ensure reasonable safety of others</div>
+                </div>
+                <div class="term-item">
+                    <div class="term-word">BAC</div>
+                    <div class="term-def">Blood Alcohol Concentration - measured as percentage of alcohol in blood</div>
+                </div>
+                <div class="term-item">
+                    <div class="term-word">Jigger</div>
+                    <div class="term-def">Measuring tool for spirits with 15ml and 30ml ends</div>
+                </div>
+                <div class="term-item">
+                    <div class="term-word">Responsible Adult</div>
+                    <div class="term-def">Parent, step-parent, guardian, or spouse/de-facto of a minor</div>
+                </div>
+                <div class="term-item">
+                    <div class="term-word">ABAC</div>
+                    <div class="term-def">Alcohol Beverages Advertising Code - regulates alcohol marketing in Australia</div>
+                </div>
+                <div class="term-item">
+                    <div class="term-word">Barring Order</div>
+                    <div class="term-def">Order prohibiting a person from entering or remaining on licensed premises</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Built by a tradie, for tradies 🛠️</p>
+            <p class="credit">Understanding safety shouldn't depend on how well you speak English</p>
+            <p style="margin-top: 15px;"><a href="https://itabs.ai">iTabs.ai</a></p>
+        </footer>
+    </div>
+    
+    <script>
+        const questions = [
+            // ============================================
+            // STANDARD DRINKS & MEASUREMENTS (Q1-Q15)
+            // ============================================
+            {
+                id: 1,
+                category: "drinks",
+                question: "What is a standard drink?",
+                answer: "A standard drink contains 10 grams of pure alcohol",
+                type: "text"
+            },
+            {
+                id: 2,
+                category: "drinks",
+                question: "How many standard drinks are in a 375ml can of full strength beer (4.8% ABV)?",
+                answer: "1.4 standard drinks",
+                type: "text"
+            },
+            {
+                id: 3,
+                category: "drinks",
+                question: "How many standard drinks are in a 150ml glass of wine?",
+                answer: "1.4 to 1.6 standard drinks (depending on alcohol content)",
+                type: "text"
+            },
+            {
+                id: 4,
+                category: "drinks",
+                question: "How many standard drinks are in a 30ml nip of spirits?",
+                answer: "1 standard drink",
+                type: "text"
+            },
+            {
+                id: 5,
+                category: "drinks",
+                question: "What is a jigger used for?",
+                answer: "Measuring spirits accurately - has a 15ml end and a 30ml end",
+                type: "text"
+            },
+            {
+                id: 6,
+                category: "drinks",
+                question: "Why is it important to use measuring equipment like a jigger?",
+                answer: "To ensure consistent standard drink measurements and help patrons monitor their consumption",
+                type: "text"
+            },
+            {
+                id: 7,
+                category: "drinks",
+                question: "How many millilitres in a standard glass of wine?",
+                answer: "150ml (though restaurant pours can vary)",
+                type: "text"
+            },
+            {
+                id: 8,
+                category: "drinks",
+                question: "A middy/pot of full strength beer (285ml) contains how many standard drinks?",
+                answer: "1.1 standard drinks",
+                type: "text"
+            },
+            {
+                id: 9,
+                category: "drinks",
+                question: "A schooner of full strength beer (425ml) contains how many standard drinks?",
+                answer: "1.6 standard drinks",
+                type: "text"
+            },
+            {
+                id: 10,
+                category: "drinks",
+                question: "Which has more alcohol - a glass of wine or a nip of spirits?",
+                answer: "A glass of wine (150ml wine = 1.4-1.6 standard drinks vs 30ml spirits = 1 standard drink)",
+                type: "text"
+            },
+            {
+                id: 11,
+                category: "drinks",
+                question: "How many standard drinks in a 750ml bottle of wine (13% ABV)?",
+                answer: "7.7 standard drinks",
+                type: "text"
+            },
+            {
+                id: 12,
+                category: "drinks",
+                question: "What does ABV stand for?",
+                answer: "Alcohol By Volume - the percentage of alcohol in a drink",
+                type: "text"
+            },
+            {
+                id: 13,
+                category: "drinks",
+                question: "A cocktail with 60ml of spirits contains how many standard drinks?",
+                answer: "2 standard drinks (60ml = 2 x 30ml nips)",
+                type: "text"
+            },
+            {
+                id: 14,
+                category: "drinks",
+                question: "Low strength beer is typically what percentage ABV?",
+                answer: "2.7% ABV or less",
+                type: "text"
+            },
+            {
+                id: 15,
+                category: "drinks",
+                question: "How can patrons identify the number of standard drinks in packaged alcohol?",
+                answer: "By reading the label - all packaged alcohol must display the number of standard drinks",
+                type: "text"
+            },
+            
+            // ============================================
+            // HEALTH EFFECTS & BAC (Q16-Q35)
+            // ============================================
+            {
+                id: 16,
+                category: "health",
+                question: "How many standard drinks can the liver process per hour?",
+                answer: "1 standard drink per hour",
+                type: "text"
+            },
+            {
+                id: 17,
+                category: "health",
+                question: "What is the legal BAC limit for driving in Australia?",
+                answer: "0.05%",
+                type: "text"
+            },
+            {
+                id: 18,
+                category: "health",
+                question: "To stay under the legal BAC for driving, how many standard drinks should you have in the first hour?",
+                answer: "2 standard drinks in the first hour, then 1 standard drink per hour after",
+                type: "text"
+            },
+            {
+                id: 19,
+                category: "health",
+                question: "What is the ONLY thing that sobers someone up?",
+                answer: "Time - nothing else works (not coffee, cold showers, fresh air, food, etc.)",
+                type: "text"
+            },
+            {
+                id: 20,
+                category: "health",
+                question: "Why do women typically reach higher BAC than men from the same amount of alcohol?",
+                answer: "Women have less body water than men, so alcohol is more concentrated",
+                type: "text"
+            },
+            {
+                id: 21,
+                category: "health",
+                question: "What factors affect how quickly someone becomes intoxicated?",
+                options: [
+                    { text: "Food in stomach", correct: true },
+                    { text: "Rate of drinking", correct: true },
+                    { text: "Body size", correct: true },
+                    { text: "Sun/heat exposure", correct: true },
+                    { text: "Health conditions", correct: true },
+                    { text: "Gender", correct: true },
+                    { text: "Fatigue", correct: true },
+                    { text: "Hair colour", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 22,
+                category: "health",
+                question: "According to Australian alcohol guidelines, healthy adults should drink no more than:",
+                answer: "10 standard drinks per week, and no more than 4 standard drinks on any one day",
+                type: "text"
+            },
+            {
+                id: 23,
+                category: "health",
+                question: "Who should NOT drink alcohol at all according to Australian guidelines?",
+                options: [
+                    { text: "Pregnant women", correct: true },
+                    { text: "Women trying to become pregnant", correct: true },
+                    { text: "Breastfeeding women (safest option)", correct: true },
+                    { text: "Under 18s", correct: true },
+                    { text: "Anyone over 65", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 24,
+                category: "health",
+                question: "What is FASD?",
+                answer: "Fetal Alcohol Spectrum Disorder - a range of disabilities from prenatal alcohol exposure",
+                type: "text"
+            },
+            {
+                id: 25,
+                category: "health",
+                question: "At what BAC level does risk of death become significant?",
+                answer: "0.30% and above - risk of coma and death",
+                type: "text"
+            },
+            {
+                id: 26,
+                category: "health",
+                question: "What are the health impacts of excessive alcohol consumption?",
+                options: [
+                    { text: "Loss of sleep/fatigue", correct: true },
+                    { text: "Depression/weight gain", correct: true },
+                    { text: "Liver damage", correct: true },
+                    { text: "Brain damage", correct: true },
+                    { text: "Increased stamina", correct: false },
+                    { text: "Improved fitness", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 27,
+                category: "health",
+                question: "What percentage of intimate partner violence involves alcohol?",
+                answer: "34%",
+                type: "text"
+            },
+            {
+                id: 28,
+                category: "health",
+                question: "What percentage of family violence involves alcohol?",
+                answer: "29%",
+                type: "text"
+            },
+            {
+                id: 29,
+                category: "health",
+                question: "What percentage of police time is dedicated to alcohol-related incidents?",
+                answer: "10%",
+                type: "text"
+            },
+            {
+                id: 30,
+                category: "health",
+                question: "In 2019, what percentage of Australians 14+ consumed more than 4 standard drinks monthly?",
+                answer: "25%",
+                type: "text"
+            },
+            {
+                id: 31,
+                category: "health",
+                question: "What is 'erratic drinking'?",
+                answer: "Consuming alcohol in an irresponsible manner",
+                type: "text"
+            },
+            {
+                id: 32,
+                category: "health",
+                question: "How much did the Australian Government commit to the National Binge Drinking Strategy?",
+                answer: "Initial commitment of $53.5 million (total $103.5 million)",
+                type: "text"
+            },
+            {
+                id: 33,
+                category: "health",
+                question: "At what age do young people start to recognise the intentions of alcohol advertisers?",
+                answer: "Around the age of 16 or 17",
+                type: "text"
+            },
+            {
+                id: 34,
+                category: "health",
+                question: "Through what medium are alcohol brands now targeting young people in new ways?",
+                answer: "Social media",
+                type: "text"
+            },
+            {
+                id: 35,
+                category: "health",
+                question: "Alcohol ads show drinking as something that will enhance mood or well-being, and:",
+                answer: "Contribute to positive emotional experiences, friendships, and achievement",
+                type: "text"
+            },
+            
+            // ============================================
+            // INTOXICATION SIGNS & ASSESSMENT (Q36-Q55)
+            // ============================================
+            {
+                id: 36,
+                category: "intox",
+                question: "What are EARLY signs of intoxication?",
+                options: [
+                    { text: "Singing loudly, laughing, crude jokes (loss of inhibition)", correct: true },
+                    { text: "Bumping into furniture, lack of focus, becoming agitated", correct: true },
+                    { text: "Stumbling, aggression, slurred speech", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 37,
+                category: "intox",
+                question: "What are LATER signs of intoxication?",
+                options: [
+                    { text: "Stumbling or staggering", correct: true },
+                    { text: "Slurred speech", correct: true },
+                    { text: "Aggressive behaviour", correct: true },
+                    { text: "Vomiting", correct: true },
+                    { text: "Loss of consciousness", correct: true },
+                    { text: "Talking loudly", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 38,
+                category: "intox",
+                question: "Which of the following is NOT a sign of intoxication?",
+                answer: "Patiently waiting to be served (this is normal behaviour)",
+                type: "text"
+            },
+            {
+                id: 39,
+                category: "intox",
+                question: "Which is NOT a sign of intoxication?",
+                answer: "Quietly sitting at the bar (normal behaviour)",
+                type: "text"
+            },
+            {
+                id: 40,
+                category: "intox",
+                question: "What are erratic drinking patterns?",
+                options: [
+                    { text: "Quick drinking/skulling", correct: true },
+                    { text: "Ordering multiple drinks for self", correct: true },
+                    { text: "Mixing drink types", correct: true },
+                    { text: "Consistent sampling", correct: true },
+                    { text: "Triple shots", correct: true },
+                    { text: "Alternating between alcohol and water", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 41,
+                category: "intox",
+                question: "In Queensland, what is 'undue intoxication'?",
+                answer: "A state where a person's mental and physical faculties are impaired by alcohol so as to diminish their ability to think and act prudently",
+                type: "text"
+            },
+            {
+                id: 42,
+                category: "intox",
+                question: "In Western Australia, the term used instead of 'intoxicated' is:",
+                answer: "Drunk",
+                type: "text"
+            },
+            {
+                id: 43,
+                category: "intox",
+                question: "In Tasmania, a patron is intoxicated if their speech, balance, coordination or behaviour is:",
+                answer: "Noticeably affected",
+                type: "text"
+            },
+            {
+                id: 44,
+                category: "intox",
+                question: "In ACT, a person is intoxicated if their speech, balance, coordination or behaviour is:",
+                answer: "Seriously affected",
+                type: "text"
+            },
+            {
+                id: 45,
+                category: "intox",
+                question: "What factors should you consider to avoid discrimination when assessing intoxication?",
+                answer: "Physical disabilities, medical conditions, and other factors that may cause similar signs to intoxication",
+                type: "text"
+            },
+            {
+                id: 46,
+                category: "intox",
+                question: "What does 'reasonable belief' mean when assessing intoxication?",
+                answer: "A belief that a reasonable person would have in that situation, taking into account the relevant facts and circumstances",
+                type: "text"
+            },
+            {
+                id: 47,
+                category: "intox",
+                question: "Victorian Intoxication Guidelines list these signs:",
+                options: [
+                    { text: "Becoming loud and boisterous", correct: true },
+                    { text: "Having difficulty walking straight", correct: true },
+                    { text: "Rambling in conversation", correct: true },
+                    { text: "Fumbling/difficulty picking up objects", correct: true },
+                    { text: "Not hearing or understanding what is being said", correct: true },
+                    { text: "Swaying or dozing", correct: true }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 48,
+                category: "intox",
+                question: "Under SA Liquor Licensing Act 1997, it is an offence to sell to an intoxicated person if the impairment is the result of:",
+                answer: "The consumption of liquor",
+                type: "text"
+            },
+            {
+                id: 49,
+                category: "intox",
+                question: "Under WA Liquor Control Act 1988, it is an offence to sell or supply liquor to a:",
+                answer: "Drunk person",
+                type: "text"
+            },
+            {
+                id: 50,
+                category: "intox",
+                question: "In the Northern Territory, who has the onus to prove the customer was not intoxicated?",
+                options: [
+                    { text: "The employees of the licensed premises", correct: true },
+                    { text: "The licensee", correct: true },
+                    { text: "The customer", correct: false },
+                    { text: "The police", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 51,
+                category: "intox",
+                question: "A licensee, permit-holder or employee must not sell liquor if there are ___ grounds for believing the person is intoxicated:",
+                answer: "Reasonable",
+                type: "text"
+            },
+            {
+                id: 52,
+                category: "intox",
+                question: "What is a disorderly person?",
+                answer: "Someone whose behaviour and/or language may interfere with the safety and/or comfort of those around them (can be sober)",
+                type: "text"
+            },
+            {
+                id: 53,
+                category: "intox",
+                question: "Can you refuse service to a disorderly person who is NOT intoxicated?",
+                answer: "Yes - you can refuse service to disorderly persons whether or not they have consumed alcohol",
+                type: "text"
+            },
+            {
+                id: 54,
+                category: "intox",
+                question: "BAC of 0.05% to 0.08% shows what level of intoxication?",
+                answer: "Intoxicated - reduced ability to comprehend, clumsiness, drowsiness, inappropriate speech",
+                type: "text"
+            },
+            {
+                id: 55,
+                category: "intox",
+                question: "BAC of 0.08% to 0.15% shows what level of intoxication?",
+                answer: "Unduly Intoxicated - loss of peripheral vision, difficulty concentrating, glassy eyes, loss of coordination",
+                type: "text"
+            },
+            
+            // ============================================
+            // SERVICE & REFUSAL PROCEDURES (Q56-Q75)
+            // ============================================
+            {
+                id: 56,
+                category: "service",
+                question: "What is the correct approach when refusing service?",
+                answer: "Approach in a friendly and respectful manner - YOU must address the patron directly (not through their friends)",
+                type: "text"
+            },
+            {
+                id: 57,
+                category: "service",
+                question: "When addressing an aggressive patron, you should:",
+                options: [
+                    { text: "Don't make it personal", correct: true },
+                    { text: "Provide reasons based on law/policy", correct: true },
+                    { text: "Try to gain support of other patrons to outnumber them", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 58,
+                category: "service",
+                question: "When a patron becomes angry at refusal of service, you should:",
+                answer: "Remain calm and explain the decision is not personal",
+                type: "text"
+            },
+            {
+                id: 59,
+                category: "service",
+                question: "When an intoxicated patron requests a drink, you should:",
+                answer: "Refuse service, explain house policy, and help organize safe transport home",
+                type: "text"
+            },
+            {
+                id: 60,
+                category: "service",
+                question: "When handling a loud demanding patron, you should:",
+                options: [
+                    { text: "Use calm language and relaxed body language", correct: true },
+                    { text: "Ask patron to step away from audience", correct: true },
+                    { text: "Match their energy level", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 61,
+                category: "service",
+                question: "What is NOT a good approach with a birthday group patron?",
+                answer: "Telling patron you don't care about their birthday and threatening to ban them",
+                type: "text"
+            },
+            {
+                id: 62,
+                category: "service",
+                question: "In a video refusal example, what is NOT positive behaviour by bar staff?",
+                answer: "Matching the patron's behaviour - staff should stay calm regardless",
+                type: "text"
+            },
+            {
+                id: 63,
+                category: "service",
+                question: "After refusing service, internal communication should include:",
+                options: [
+                    { text: "Advise manager/security/staff", correct: true },
+                    { text: "Enter in incident register", correct: true },
+                    { text: "Arrange patron briefing", correct: false },
+                    { text: "Check signage", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 64,
+                category: "service",
+                question: "What is acceptable practice when serving alcohol?",
+                answer: "Serving non-alcoholic and low alcohol drinks, and having free drinking water available",
+                type: "text"
+            },
+            {
+                id: 65,
+                category: "service",
+                question: "Which practices are UNACCEPTABLE when serving alcohol?",
+                options: [
+                    { text: "Free drinks for 3 hours with no security", correct: true },
+                    { text: "Serving alcohol in shooters or test tubes", correct: true },
+                    { text: "Serving alcohol 'laybacks'", correct: true },
+                    { text: "Serving alcohol using water pistols", correct: true },
+                    { text: "Serving jugs of spirits", correct: true },
+                    { text: "Serving non-alcoholic drinks", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 66,
+                category: "service",
+                question: "Why are 'laybacks' not allowed?",
+                answer: "The patron cannot monitor or control their consumption",
+                type: "text"
+            },
+            {
+                id: 67,
+                category: "service",
+                question: "What can you legitimately refuse service for?",
+                answer: "Patrons not meeting dress standards (not discriminatory reasons)",
+                type: "text"
+            },
+            {
+                id: 68,
+                category: "service",
+                question: "What transportation options can you offer patrons who are removed?",
+                options: [
+                    { text: "Public transportation (buses/trains)", correct: true },
+                    { text: "Taxi service (e.g. 131008)", correct: true },
+                    { text: "Connect with designated driver", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 69,
+                category: "service",
+                question: "What is duty of care?",
+                answer: "Legal obligation to ensure reasonable safety of patrons, staff, and the community",
+                type: "text"
+            },
+            {
+                id: 70,
+                category: "service",
+                question: "Who is accountable under RSA laws?",
+                options: [
+                    { text: "Licensee", correct: true },
+                    { text: "Manager/responsible person", correct: true },
+                    { text: "Staff member who serves", correct: true },
+                    { text: "Security/crowd controllers", correct: true },
+                    { text: "Customers only", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 71,
+                category: "service",
+                question: "What is the primary goal of RSA?",
+                answer: "Harm minimization - reducing harm to individuals, families, and the community",
+                type: "text"
+            },
+            {
+                id: 72,
+                category: "service",
+                question: "When should you slow down service to a patron?",
+                answer: "When they show early signs of intoxication - don't wait until they're obviously intoxicated",
+                type: "text"
+            },
+            {
+                id: 73,
+                category: "service",
+                question: "What strategies can help prevent patron intoxication?",
+                options: [
+                    { text: "Promote low/mid-strength drinks", correct: true },
+                    { text: "Provide free snack food", correct: true },
+                    { text: "Slow service down", correct: true },
+                    { text: "Wait for patron to re-order (don't auto top-up)", correct: true },
+                    { text: "Encourage skulling games", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 74,
+                category: "service",
+                question: "What force can be used to remove an intoxicated person from premises?",
+                answer: "Reasonable force - only what is necessary for the purpose",
+                type: "text"
+            },
+            {
+                id: 75,
+                category: "service",
+                question: "In South Australia, an authorised person can use what type of force to remove an intoxicated or disorderly person?",
+                answer: "Reasonable force",
+                type: "text"
+            },
+            
+            // ============================================
+            // MINORS & ID (Q76-Q90)
+            // ============================================
+            {
+                id: 76,
+                category: "minors",
+                question: "What is the legal drinking age in Australia?",
+                answer: "18 years old",
+                type: "text"
+            },
+            {
+                id: 77,
+                category: "minors",
+                question: "What types of ID are acceptable to prove age?",
+                options: [
+                    { text: "Current Australian driver's license", correct: true },
+                    { text: "Current passport (Australian or foreign)", correct: true },
+                    { text: "State/Territory proof of age card", correct: true },
+                    { text: "Keypass identity card", correct: true },
+                    { text: "Student ID card", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 78,
+                category: "minors",
+                question: "What is 'secondary supply'?",
+                answer: "When someone obtains alcohol on behalf of a minor - this is illegal",
+                type: "text"
+            },
+            {
+                id: 79,
+                category: "minors",
+                question: "Who is a 'responsible adult' for a minor?",
+                options: [
+                    { text: "Parent", correct: true },
+                    { text: "Step-parent", correct: true },
+                    { text: "Guardian", correct: true },
+                    { text: "Spouse/de-facto over 18", correct: true },
+                    { text: "Any adult over 18", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 80,
+                category: "minors",
+                question: "When can minors be on licensed premises?",
+                options: [
+                    { text: "When accompanied by a responsible adult", correct: true },
+                    { text: "When attending private functions", correct: true },
+                    { text: "When working (with conditions)", correct: true },
+                    { text: "When having a meal", correct: true },
+                    { text: "Anytime they want", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 81,
+                category: "minors",
+                question: "In Queensland, can minors serve alcohol?",
+                answer: "Yes - minors with an RSA can serve and supply alcohol in QLD",
+                type: "text"
+            },
+            {
+                id: 82,
+                category: "minors",
+                question: "In South Australia, at what age can a licensee's child serve alcohol?",
+                answer: "16 years of age, if they are the child of the licensee or responsible person",
+                type: "text"
+            },
+            {
+                id: 83,
+                category: "minors",
+                question: "In Western Australia, at what age can a minor serve alcohol ancillary to a meal?",
+                answer: "16 years, with Director approval, supervision at all times, and as part of training",
+                type: "text"
+            },
+            {
+                id: 84,
+                category: "minors",
+                question: "In the Northern Territory, what is the minimum age to serve alcohol?",
+                answer: "18 years old (with exceptions for training and children of licensees)",
+                type: "text"
+            },
+            {
+                id: 85,
+                category: "minors",
+                question: "What should you do if a fake ID is presented in WA?",
+                answer: "Confiscate the ID and remove the minor from the premises",
+                type: "text"
+            },
+            {
+                id: 86,
+                category: "minors",
+                question: "In SA, if a minor fails to present ID or uses false identification, what should you do?",
+                answer: "Require them to leave the premises",
+                type: "text"
+            },
+            {
+                id: 87,
+                category: "minors",
+                question: "In NT, a child must not misrepresent his or her age for the purpose of:",
+                answer: "Entering or remaining on licensed premises",
+                type: "text"
+            },
+            {
+                id: 88,
+                category: "minors",
+                question: "What signage must be displayed regarding minors?",
+                answer: "Signs informing of the law relating to under-age drinking, including penalties",
+                type: "text"
+            },
+            {
+                id: 89,
+                category: "minors",
+                question: "In SA, does signage need to explain how minors can be exempt from prohibition?",
+                answer: "No - this is NOT a requirement for the sign",
+                type: "text"
+            },
+            {
+                id: 90,
+                category: "minors",
+                question: "In Tasmania, what is the minimum age to sell or serve alcohol?",
+                answer: "16 years (18 in some prohibited areas)",
+                type: "text"
+            },
+            
+            // ============================================
+            // COMMUNITY IMPACT & HARM (Q91-Q100)
+            // ============================================
+            {
+                id: 91,
+                category: "harm",
+                question: "How does excessive drinking affect relationships with family and colleagues?",
+                options: [
+                    { text: "Moody/aggressive causing verbal/physical harm to loved ones", correct: true },
+                    { text: "Late for work or missing days, pressuring colleagues", correct: true },
+                    { text: "Spending friends' money", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 92,
+                category: "harm",
+                question: "What are effects on the night-time economy?",
+                options: [
+                    { text: "Reduced trading hours", correct: true },
+                    { text: "Lockout policies", correct: true },
+                    { text: "Staff unemployment", correct: true },
+                    { text: "Increased car sales", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 93,
+                category: "harm",
+                question: "What is NOT a cost to Local Government from alcohol-related harm?",
+                answer: "Entertainment in bars - this is a private business expense, not government cost",
+                type: "text"
+            },
+            {
+                id: 94,
+                category: "harm",
+                question: "Excessive drinking affects the ___ of local businesses and neighbourhoods:",
+                answer: "Reputation",
+                type: "text"
+            },
+            {
+                id: 95,
+                category: "harm",
+                question: "What is the objective of the Liquor Act 2010 (ACT)?",
+                answer: "To regulate sale, supply, promotion and consumption of liquor as a means of minimising the harm associated with consumption of liquor",
+                type: "text"
+            },
+            {
+                id: 96,
+                category: "harm",
+                question: "Which is NOT an objective of Tasmania's Liquor Licensing Act 1990?",
+                answer: "Innovation in the hospitality industry - the Act focuses on harm minimisation, not innovation",
+                type: "text"
+            },
+            {
+                id: 97,
+                category: "harm",
+                question: "What are the primary objects of the WA Liquor Control Act 1988?",
+                options: [
+                    { text: "Regulate sale, supply and consumption of liquor", correct: true },
+                    { text: "Minimise harm caused by use of liquor", correct: true },
+                    { text: "Cater for consumer requirements", correct: true },
+                    { text: "Maximise profits for venues", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 98,
+                category: "harm",
+                question: "Which is NOT an objective of SA Liquor Licensing Act 1997?",
+                answer: "Economic growth and financial gain - focus is harm minimisation, not profit",
+                type: "text"
+            },
+            {
+                id: 99,
+                category: "harm",
+                question: "What is the objective of the NSW Liquor Act 2007?",
+                answer: "To regulate and control the sale, supply, and consumption of alcohol",
+                type: "text"
+            },
+            {
+                id: 100,
+                category: "harm",
+                question: "What is the purpose of the SA Code of Practice?",
+                options: [
+                    { text: "Minimise harm from excessive/inappropriate consumption", correct: true },
+                    { text: "Ensure sale, supply and consumption is safe and responsible", correct: true },
+                    { text: "Benefit the licensee financially", correct: false }
+                ],
+                type: "multiple"
+            },
+            
+            // ============================================
+            // STATE-SPECIFIC REGULATIONS (Q101-Q120)
+            // ============================================
+            {
+                id: 101,
+                category: "states",
+                question: "What is unique about Queensland regarding intoxicated patrons?",
+                answer: "Patrons deemed unduly intoxicated can stay in premises (venue specific), but only have non-alcoholic beverages",
+                type: "text"
+            },
+            {
+                id: 102,
+                category: "states",
+                question: "In Queensland after midnight (from 1 July 2016), what drinks CANNOT be sold?",
+                options: [
+                    { text: "Shooters, shots, bombs, blasters", correct: true },
+                    { text: "Drinks >45ml alcohol", correct: true },
+                    { text: "Pre-mixed >5% or >2 standard drinks", correct: true },
+                    { text: "Wine, beer, cider", correct: false },
+                    { text: "Cocktails on menu with set price", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 103,
+                category: "states",
+                question: "If someone orders a Jagerbomb at 12:05am in QLD, what should you do?",
+                options: [
+                    { text: "Refuse and point to poster", correct: true },
+                    { text: "Offer spirit with mixer or beer instead", correct: true },
+                    { text: "Suggest similar cocktail on menu", correct: true },
+                    { text: "Serve it anyway", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 104,
+                category: "states",
+                question: "In Queensland, how long must all staff complete RSA training after starting employment?",
+                answer: "Within 30 days of employment",
+                type: "text"
+            },
+            {
+                id: 105,
+                category: "states",
+                question: "Western Australia's liquor laws are defined in which Act?",
+                answer: "Liquor Control Act 1988",
+                type: "text"
+            },
+            {
+                id: 106,
+                category: "states",
+                question: "Under SA Liquor Licensing Act 1997, who is guilty if liquor is sold to an intoxicated person?",
+                options: [
+                    { text: "The licensee", correct: true },
+                    { text: "The responsible person for the premises", correct: true },
+                    { text: "The person who sold the liquor", correct: true },
+                    { text: "Persons in authority (trust/corporate)", correct: true }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 107,
+                category: "states",
+                question: "What is NOT an offence under the SA Liquor Licensing Act?",
+                answer: "Refusing service to an intoxicated person - this is a required duty, not an offence",
+                type: "text"
+            },
+            {
+                id: 108,
+                category: "states",
+                question: "In SA, between 12:01am and 3:00am, queue management must be:",
+                answer: "Continuously monitored",
+                type: "text"
+            },
+            {
+                id: 109,
+                category: "states",
+                question: "In SA, a risk assessment identifies what is required?",
+                answer: "Training",
+                type: "text"
+            },
+            {
+                id: 110,
+                category: "states",
+                question: "In SA, is the CBS management plan template mandatory?",
+                answer: "No - licensees can develop their own plan",
+                type: "text"
+            },
+            {
+                id: 111,
+                category: "states",
+                question: "The Victorian Liquor Commission provides licensing, investigative, disciplinary, and other regulatory:",
+                answer: "Functions",
+                type: "text"
+            },
+            {
+                id: 112,
+                category: "states",
+                question: "In Northern Territory Darwin region, takeaway authority on Thursday (weekday) hours are:",
+                answer: "10:00am to 10:00pm",
+                type: "text"
+            },
+            {
+                id: 113,
+                category: "states",
+                question: "The QLD Liquor Act exemption for fundraising events applies when:",
+                answer: "The QLD Liquor Act may not apply to some eligible fundraising events (that meet all conditions)",
+                type: "text"
+            },
+            {
+                id: 114,
+                category: "states",
+                question: "In SA, who can bar a person from licensed premises?",
+                answer: "A licensee or a responsible person for licensed premises",
+                type: "text"
+            },
+            {
+                id: 115,
+                category: "states",
+                question: "In WA, who can prevent entry or remove a barred patron?",
+                answer: "A member of the Police Force may, and on request by an authorised person shall, prevent entry or remove the person",
+                type: "text"
+            },
+            {
+                id: 116,
+                category: "states",
+                question: "In NT, who can issue banning orders?",
+                answer: "Police officers",
+                type: "text"
+            },
+            {
+                id: 117,
+                category: "states",
+                question: "SA barring periods can range:",
+                options: [
+                    { text: "Up to 3 months (first barring)", correct: true },
+                    { text: "Up to 6 months (second barring)", correct: true },
+                    { text: "Indefinitely (third barring)", correct: true }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 118,
+                category: "states",
+                question: "In Tasmania, a barring order can prohibit entry for up to:",
+                answer: "6 months",
+                type: "text"
+            },
+            {
+                id: 119,
+                category: "states",
+                question: "Which states have dry area/restricted area legislation?",
+                options: [
+                    { text: "Queensland (near Aboriginal communities)", correct: true },
+                    { text: "Western Australia (53 restricted areas)", correct: true },
+                    { text: "Northern Territory", correct: true }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 120,
+                category: "states",
+                question: "In NT Darwin, responsible drinking hours between Aralia Street and Chapman Road are:",
+                answer: "Mon-Fri 4pm-10:30pm, Weekends/public holidays 12 noon-10:30pm",
+                type: "text"
+            },
+            
+            // ============================================
+            // PENALTIES (Q121-Q130)
+            // ============================================
+            {
+                id: 121,
+                category: "penalties",
+                question: "In Queensland, what is the maximum fine for licensee/manager supplying to an intoxicated person?",
+                answer: "$71,875",
+                type: "text"
+            },
+            {
+                id: 122,
+                category: "penalties",
+                question: "In Queensland, what is the maximum fine for bar staff supplying to an intoxicated person?",
+                answer: "$11,500",
+                type: "text"
+            },
+            {
+                id: 123,
+                category: "penalties",
+                question: "In Victoria, what is the maximum fine for supplying to an intoxicated person?",
+                answer: "$22,190",
+                type: "text"
+            },
+            {
+                id: 124,
+                category: "penalties",
+                question: "In Western Australia, what is the penalty for licensee/manager serving a drunk person?",
+                answer: "$10,000",
+                type: "text"
+            },
+            {
+                id: 125,
+                category: "penalties",
+                question: "In Western Australia, what is the penalty for an employee serving a drunk person?",
+                answer: "$4,000",
+                type: "text"
+            },
+            {
+                id: 126,
+                category: "penalties",
+                question: "In South Australia, what is the maximum penalty for first offence serving an intoxicated person?",
+                answer: "$20,000",
+                type: "text"
+            },
+            {
+                id: 127,
+                category: "penalties",
+                question: "In South Australia, what is the maximum penalty for second/subsequent offence?",
+                answer: "$40,000",
+                type: "text"
+            },
+            {
+                id: 128,
+                category: "penalties",
+                question: "In NSW, what is the maximum penalty for licensee selling to intoxicated person?",
+                answer: "$11,000",
+                type: "text"
+            },
+            {
+                id: 129,
+                category: "penalties",
+                question: "In Queensland, maximum penalty for no rapid intoxication drinks after midnight is:",
+                answer: "$12,615",
+                type: "text"
+            },
+            {
+                id: 130,
+                category: "penalties",
+                question: "What can happen to staff who breach RSA laws?",
+                options: [
+                    { text: "Fines", correct: true },
+                    { text: "Loss of employment", correct: true },
+                    { text: "Criminal charges", correct: true },
+                    { text: "Being banned from industry", correct: true }
+                ],
+                type: "multiple"
+            },
+            
+            // ============================================
+            // HOUSE POLICIES (Q131-Q140)
+            // ============================================
+            {
+                id: 131,
+                category: "house",
+                question: "What must licensees keep records of?",
+                answer: "RSA training for all staff - keep copies of certificates on premises",
+                type: "text"
+            },
+            {
+                id: 132,
+                category: "house",
+                question: "Is verbal confirmation of RSA training sufficient?",
+                answer: "No - written records and certificates must be kept",
+                type: "text"
+            },
+            {
+                id: 133,
+                category: "house",
+                question: "Where can you receive information about the liquor industry?",
+                options: [
+                    { text: "Management or licensee", correct: true },
+                    { text: "Key stakeholder groups", correct: true },
+                    { text: "Liquor Forums and Accords", correct: true },
+                    { text: "Industry Associations or Unions", correct: true },
+                    { text: "Other businesses in community", correct: true }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 134,
+                category: "house",
+                question: "What must be displayed regarding public transport?",
+                answer: "Mandatory signage of public transport or taxi service for safe transport of patrons",
+                type: "text"
+            },
+            {
+                id: 135,
+                category: "house",
+                question: "In WA, what is the penalty for failing to provide free water?",
+                answer: "Licensee $10,000, Manager $4,000",
+                type: "text"
+            },
+            {
+                id: 136,
+                category: "house",
+                question: "What are undesirable alcohol products?",
+                answer: "Products with packaging attractive to minors, or likely to be confused with soft drinks or confectionery",
+                type: "text"
+            },
+            {
+                id: 137,
+                category: "house",
+                question: "The conduct of business under a licence is always the responsibility of:",
+                answer: "The licensee - must be personally supervised and managed",
+                type: "text"
+            },
+            {
+                id: 138,
+                category: "house",
+                question: "What incidents must be recorded?",
+                answer: "All incidents - not just violent ones (enter in incident register)",
+                type: "text"
+            },
+            {
+                id: 139,
+                category: "house",
+                question: "What must be displayed at licensed premises?",
+                options: [
+                    { text: "Licence details", correct: true },
+                    { text: "RSA signage", correct: true },
+                    { text: "Proof of age requirements", correct: true },
+                    { text: "Transport options", correct: true },
+                    { text: "Staff personal details", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 140,
+                category: "house",
+                question: "In SA, a sign at out of bounds areas must be at each entrance to:",
+                answer: "That part of the premises (the out of bounds area)",
+                type: "text"
+            },
+            
+            // ============================================
+            // ABAC & ADVERTISING (Q141-Q145)
+            // ============================================
+            {
+                id: 141,
+                category: "abac",
+                question: "What does ABAC stand for?",
+                answer: "Alcohol Beverages Advertising Code",
+                type: "text"
+            },
+            {
+                id: 142,
+                category: "abac",
+                question: "Under ABAC, alcohol marketing must NOT:",
+                options: [
+                    { text: "Display/encourage excessive or rapid consumption", correct: true },
+                    { text: "Display/encourage irresponsible or offensive behaviour", correct: true },
+                    { text: "Challenge or dare people to consume alcohol", correct: true },
+                    { text: "Have strong appeal to minors", correct: true },
+                    { text: "Depict minors around alcohol (with some exceptions)", correct: true },
+                    { text: "Encourage customers to drink responsibly", correct: false }
+                ],
+                type: "multiple"
+            },
+            {
+                id: 143,
+                category: "abac",
+                question: "What IS allowed in alcohol advertising?",
+                answer: "Encouraging customers to Drink Responsibly",
+                type: "text"
+            },
+            {
+                id: 144,
+                category: "abac",
+                question: "Using sports stars in alcohol advertising can be problematic because:",
+                answer: "The image can have strong appeal to minors through the use of sports",
+                type: "text"
+            },
+            {
+                id: 145,
+                category: "abac",
+                question: "Alcohol advertising is self-regulatory, meaning:",
+                answer: "The alcohol companies themselves are in charge of making sure their Advertising Code is not breached",
+                type: "text"
+            },
+            
+            // ============================================
+            // REMOTE SALES & DELIVERY (Q146)
+            // ============================================
+            {
+                id: 146,
+                category: "remote",
+                question: "What are requirements for remote sale and delivery of alcohol?",
+                options: [
+                    { text: "Seek proof recipient is over 18", correct: true },
+                    { text: "Not leave alcohol at unoccupied premises", correct: true },
+                    { text: "Only deliver to adult", correct: true },
+                    { text: "Provide adequate instruction to deliverer", correct: true },
+                    { text: "Display warning sign on website about underage sales", correct: true },
+                    { text: "Leave with minor if nominated by purchaser", correct: false }
+                ],
+                type: "multiple"
+            }
+        ];
+        
+        let selectedLanguage = '';
+        let selectedCategory = 'all';
+        let searchTerm = '';
+        
+        // Render questions
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            let filtered = questions;
+            
+            // Filter by category
+            if (selectedCategory !== 'all') {
+                filtered = filtered.filter(q => q.category === selectedCategory);
+            }
+            
+            // Filter by search
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(q => {
+                    const questionMatch = q.question.toLowerCase().includes(term);
+                    const answerMatch = q.answer ? q.answer.toLowerCase().includes(term) : false;
+                    const optionsMatch = q.options ? q.options.some(o => o.text.toLowerCase().includes(term)) : false;
+                    return questionMatch || answerMatch || optionsMatch;
+                });
+            }
+            
+            // Update count
+            document.getElementById('searchCount').textContent = 
+                `Showing ${filtered.length} of ${questions.length} questions`;
+            
+            container.innerHTML = filtered.map(q => {
+                const questionText = highlightText(q.question, searchTerm);
+                
+                let answerHTML = '';
+                if (q.type === 'text') {
+                    answerHTML = `<div class="answer-text">${highlightText(q.answer, searchTerm)}</div>`;
+                } else if (q.type === 'multiple') {
+                    answerHTML = `<ul class="answer-options">
+                        ${q.options.map(opt => `
+                            <li class="${opt.correct ? 'correct' : 'incorrect'}">${highlightText(opt.text, searchTerm)}</li>
+                        `).join('')}
+                    </ul>`;
+                }
+                
+                return `
+                    <div class="question-card" data-id="${q.id}">
+                        <div class="question-header" onclick="toggleQuestion(${q.id})">
+                            <span class="question-number">Q${q.id}</span>
+                            <span class="question-text">${questionText}</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="answer-section">
+                            <div class="answer-label">Answer</div>
+                            ${answerHTML}
+                            <div class="translated-text" id="translation-${q.id}" style="display: none;">
+                                <div class="translated-label">Translation</div>
+                                <div class="translation-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function highlightText(text, term) {
+            if (!term) return text;
+            const regex = new RegExp(`(${term})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        }
+        
+        function toggleQuestion(id) {
+            const card = document.querySelector(`.question-card[data-id="${id}"]`);
+            const wasOpen = card.classList.contains('open');
+            
+            // Close all others
+            document.querySelectorAll('.question-card').forEach(c => c.classList.remove('open'));
+            
+            // Toggle this one
+            if (!wasOpen) {
+                card.classList.add('open');
+                if (selectedLanguage) {
+                    translateAnswer(id);
+                }
+            }
+        }
+        
+        async function translateAnswer(id) {
+            const q = questions.find(q => q.id === id);
+            const translationDiv = document.getElementById(`translation-${id}`);
+            
+            if (!selectedLanguage || !translationDiv) return;
+            
+            let textToTranslate = '';
+            if (q.type === 'text') {
+                textToTranslate = q.answer;
+            } else if (q.type === 'multiple') {
+                textToTranslate = q.options.filter(o => o.correct).map(o => o.text).join(', ');
+            }
+            
+            translationDiv.style.display = 'block';
+            translationDiv.querySelector('.translation-content').textContent = 'Translating...';
+            
+            try {
+                const response = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(textToTranslate)}`);
+                const data = await response.json();
+                const translated = data[0].map(item => item[0]).join('');
+                translationDiv.querySelector('.translation-content').textContent = translated;
+            } catch (error) {
+                translationDiv.querySelector('.translation-content').textContent = 'Translation unavailable';
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('languageSelect').addEventListener('change', (e) => {
+            selectedLanguage = e.target.value;
+            // Re-translate any open questions
+            document.querySelectorAll('.question-card.open').forEach(card => {
+                const id = parseInt(card.dataset.id);
+                if (selectedLanguage) {
+                    translateAnswer(id);
+                } else {
+                    document.getElementById(`translation-${id}`).style.display = 'none';
+                }
+            });
+        });
+        
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderQuestions();
+        });
+        
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedCategory = btn.dataset.category;
+                renderQuestions();
+            });
+        });
+        
+        // Initial render
+        renderQuestions();
+    </script>
+</body>
+</html>
